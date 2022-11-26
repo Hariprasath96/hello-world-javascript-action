@@ -7,9 +7,12 @@ jobs:
     outputs:
       products: ${{steps.list-products.outputs.products}}
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
       - name: List all products
         id: list-products
-        uses: Hariprasath96/hello-world-javascript-action@v2.6
+        uses: ./
 
       - name: Get the output products-list
         run: echo "All products - ${{ steps.list-products.outputs.products }}"
