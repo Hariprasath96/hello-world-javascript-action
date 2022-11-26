@@ -4,7 +4,7 @@ const github = require('@actions/github');
 try {
   // `who-to-greet` input defined in action metadata file
   const nameToGreet = core.getInput('who-to-greet');
-  console.log(`Hello ${nameToGreet}!`);
+  console.log(`Hello Hariiii!`);
   const time = (new Date()).toTimeString();
   const jsonArray = [
     { name: 'repo 1', repoName: 'repo-1', version: 'v1.0.0' },
