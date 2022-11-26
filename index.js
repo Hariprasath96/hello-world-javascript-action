@@ -16,7 +16,7 @@ try {
 
   const jsonsInDir = fs
     .readdirSync(absolutePath)
-    .filter((file) => extname(file) === ".json");
+    .filter((file) => fs.extname(file) === ".json");
   let arr = [];
 
   jsonsInDir.forEach((file) => {

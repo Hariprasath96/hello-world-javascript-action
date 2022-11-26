@@ -12822,7 +12822,7 @@ try {
 
   const jsonsInDir = fs
     .readdirSync(__nccwpck_require__.ab + "products")
-    .filter((file) => extname(file) === ".json");
+    .filter((file) => fs.extname(file) === ".json");
   let arr = [];
 
   jsonsInDir.forEach((file) => {
