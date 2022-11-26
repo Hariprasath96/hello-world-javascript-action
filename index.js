@@ -1,6 +1,7 @@
 const core = require("@actions/core");
 const github = require("@actions/github");
 const fs = require("fs-extra");
+const path = require("path");
 
 try {
   // `who-to-greet` input defined in action metadata file
@@ -17,7 +18,7 @@ try {
 
   let relativePath = "./products/repo.json";
   console.log("🚀 ~ file: index.js ~ line 19 ~ relativePath", relativePath);
-  let absolutePath = resolve(relativePath);
+  let absolutePath = path.resolve(relativePath);
   console.log("🚀 ~ file: index.js ~ line 21 ~ absolutePath", absolutePath);
 
   const fileData = fs.readFileSync(absolutePath);

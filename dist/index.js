@@ -12807,6 +12807,7 @@ var __webpack_exports__ = {};
 const core = __nccwpck_require__(4694);
 const github = __nccwpck_require__(2803);
 const fs = __nccwpck_require__(3059);
+const path = __nccwpck_require__(1017);
 
 try {
   // `who-to-greet` input defined in action metadata file
@@ -12823,10 +12824,10 @@ try {
 
   let relativePath = "./products/repo.json";
   console.log("🚀 ~ file: index.js ~ line 19 ~ relativePath", relativePath);
-  let absolutePath = resolve(relativePath);
-  console.log("🚀 ~ file: index.js ~ line 21 ~ absolutePath", absolutePath);
+  let absolutePath = __nccwpck_require__.ab + "repo.json";
+  console.log("🚀 ~ file: index.js ~ line 21 ~ absolutePath", __nccwpck_require__.ab + "repo.json");
 
-  const fileData = fs.readFileSync(absolutePath);
+  const fileData = fs.readFileSync(__nccwpck_require__.ab + "repo.json");
   const json = JSON.parse(fileData.toString());
   console.log(`File read output ${json}`);
 
