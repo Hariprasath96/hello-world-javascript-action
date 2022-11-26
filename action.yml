@@ -2,7 +2,7 @@ name: 'Fetch all products'
 description: 'Fetch all products'
 
 outputs:
-  products: # id of output
+  products:
     description: 'Get all products using script'
 runs:
   using: 'node16'
