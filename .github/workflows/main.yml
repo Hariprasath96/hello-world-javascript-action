@@ -9,7 +9,7 @@ jobs:
     steps:
       - name: Hello world action step
         id: hello
-        uses: Hariprasath96/hello-world-javascript-action@v1.7
+        uses: Hariprasath96/hello-world-javascript-action@v1.8
         with:
           who-to-greet: 'Mona the Octocat'
       # Use the output from the `hello` step
