@@ -20,7 +20,8 @@ try {
   let arr = [];
 
   jsonsInDir.forEach((file) => {
-    const fileData = fs.readFileSync(join(`${absolutePath}`, file));
+    console.log("🚀 ~ file: index.js ~ line 23 ~ jsonsInDir.forEach ~ file", file)
+    const fileData = fs.readFileSync(path.join(`${absolutePath}`, file));
 
     const json = JSON.parse(fileData.toString());
     console.log(

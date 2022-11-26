@@ -12826,7 +12826,8 @@ try {
   let arr = [];
 
   jsonsInDir.forEach((file) => {
-    const fileData = fs.readFileSync(join(__nccwpck_require__.ab + "products", file));
+    console.log("🚀 ~ file: index.js ~ line 23 ~ jsonsInDir.forEach ~ file", file)
+    const fileData = fs.readFileSync(__nccwpck_require__.ab + "products/" + file);
 
     const json = JSON.parse(fileData.toString());
     console.log(
