@@ -1,27 +1,27 @@
 on: [push]
 
 jobs:
-  hello_world_job:
+  product-list:
     runs-on: ubuntu-latest
-    name: A job to say hello
+    name: Fetch all available products
     outputs:
-      data: ${{steps.hello.outputs.time}}
+      products: ${{steps.list-products.outputs.products}}
     steps:
-      - name: Hello world action step
-        id: hello
-        uses: Hariprasath96/hello-world-javascript-action@v2.5
-        with:
-          who-to-greet: 'Mona the Octocat'
-      # Use the output from the `hello` step
-      - name: Get the output time
-        run: echo "The edited time was ${{ steps.hello.outputs.time }}"
+      - name: List all products
+        id: list-products
+        uses: Hariprasath96/hello-world-javascript-action@v2.6
+        # with:
+        #   who-to-greet: 'Mona the Octocat'
+      # Use the output from the `list-products` step
+      - name: Get the output products-list
+        run: echo "All products - ${{ steps.list-products.outputs.products }}"
 
   check:
-    needs: [ hello_world_job ]
+    needs: [ product-list ]
     runs-on: ubuntu-latest
     strategy:
         matrix:
-            manifest: ${{ fromJson(needs.hello_world_job.outputs.data) }}
+            manifest: ${{ fromJson(needs.product-list.outputs.products) }}
     steps:
       - uses: actions/checkout@v2 
       - run: |

@@ -12810,39 +12810,26 @@ const fs = __nccwpck_require__(3059);
 const path = __nccwpck_require__(1017);
 
 try {
-  // `who-to-greet` input defined in action metadata file
-  const nameToGreet = core.getInput("who-to-greet");
-  console.log(`Hello Hariiii prazz...!`);
-  const time = new Date().toTimeString();
-
+  console.log(`starting script...!`);
   let relativePath = "./products";
-  console.log("🚀 ~ file: index.js ~ line 19 ~ relativePath", relativePath);
-  let absolutePath = __nccwpck_require__.ab + "products";
-  console.log("🚀 ~ file: index.js ~ line 21 ~ absolutePath", __nccwpck_require__.ab + "products");
+  let products = [];
 
-  const jsonsInDir = fs
+  const getAllFiles = fs
     .readdirSync(__nccwpck_require__.ab + "products")
     .filter((file) => path.extname(file) === ".json");
-  let arr = [];
 
-  jsonsInDir.forEach((file) => {
-    console.log("🚀 ~ file: index.js ~ line 23 ~ jsonsInDir.forEach ~ file", file)
-    const fileData = fs.readFileSync(__nccwpck_require__.ab + "products/" + file);
-
-    const json = JSON.parse(fileData.toString());
-    console.log(
-      "🚀 ~ file: test.js ~ line 18 ~ jsonsInDir.forEach ~ json",
-      json
+  getAllFiles.forEach((file) => {
+    const fileData = fs.readFileSync(
+      __nccwpck_require__.ab + "products/" + file
     );
-    arr = [...arr, ...json];
+    const product = JSON.parse(fileData.toString());
+    products = [...products, ...product];
   });
 
-  // const fileData = fs.readFileSync(absolutePath);
-  // const json = JSON.parse(fileData.toString());
-  console.log("🚀 ~ file: index.js ~ line 26 ~ json", arr);
-  console.log(`File read output ${arr}`);
+  console.log("🚀 ~ file: index.js ~ line 26 ~ json", products);
 
-  core.setOutput("time", arr);
+  core.setOutput("products", products);
+
   // Get the JSON webhook payload for the event that triggered the workflow
   const payload = JSON.stringify(github.context.payload, undefined, 2);
   // console.log(`The event payload: ${payload}`);

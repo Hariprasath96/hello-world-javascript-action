@@ -4,39 +4,26 @@ const fs = require("fs-extra");
 const path = require("path");
 
 try {
-  // `who-to-greet` input defined in action metadata file
-  const nameToGreet = core.getInput("who-to-greet");
-  console.log(`Hello Hariiii prazz...!`);
-  const time = new Date().toTimeString();
-
+  console.log(`starting script...!`);
   let relativePath = "./products";
-  console.log("🚀 ~ file: index.js ~ line 19 ~ relativePath", relativePath);
-  let absolutePath = path.resolve(relativePath);
-  console.log("🚀 ~ file: index.js ~ line 21 ~ absolutePath", absolutePath);
+  let products = [];
 
-  const jsonsInDir = fs
-    .readdirSync(absolutePath)
+  const getAllFiles = fs
+    .readdirSync(path.resolve(relativePath))
     .filter((file) => path.extname(file) === ".json");
-  let arr = [];
 
-  jsonsInDir.forEach((file) => {
-    console.log("🚀 ~ file: index.js ~ line 23 ~ jsonsInDir.forEach ~ file", file)
-    const fileData = fs.readFileSync(path.join(`${absolutePath}`, file));
-
-    const json = JSON.parse(fileData.toString());
-    console.log(
-      "🚀 ~ file: test.js ~ line 18 ~ jsonsInDir.forEach ~ json",
-      json
+  getAllFiles.forEach((file) => {
+    const fileData = fs.readFileSync(
+      path.join(`${path.resolve(relativePath)}`, file)
     );
-    arr = [...arr, ...json];
+    const product = JSON.parse(fileData.toString());
+    products = [...products, ...product];
   });
 
-  // const fileData = fs.readFileSync(absolutePath);
-  // const json = JSON.parse(fileData.toString());
-  console.log("🚀 ~ file: index.js ~ line 26 ~ json", arr);
-  console.log(`File read output ${arr}`);
+  console.log("🚀 ~ file: index.js ~ line 26 ~ json", products);
 
-  core.setOutput("time", arr);
+  core.setOutput("products", products);
+
   // Get the JSON webhook payload for the event that triggered the workflow
   const payload = JSON.stringify(github.context.payload, undefined, 2);
   // console.log(`The event payload: ${payload}`);
