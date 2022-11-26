@@ -15,7 +15,7 @@ try {
     { name: 'test 3', repoName: 'test-2', version: 'v1.0.0' }
   ]
 
-  const fileData = fs.readFileSync('./products/repo.json', file);
+  const fileData = fs.readFileSync('./products/repo.json');
   const json = JSON.parse(fileData.toString());
   console.log(`File read output ${json}`);
 
