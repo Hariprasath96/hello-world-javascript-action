@@ -11,7 +11,7 @@ try {
     { name: 'repo 2', repoName: 'repo-1', version: 'v1.0.0' },
     { name: 'repo 3', repoName: 'repo-3', version: 'v1.0.0' },
     { name: 'test 1', repoName: 'test-1', version: 'v1.0.0' },
-    { name: 'test 2', repoName: 'test-2', version: 'v1.0.0' }
+    { name: 'test 3', repoName: 'test-2', version: 'v1.0.0' }
   ]
   core.setOutput("time", jsonArray);
   // Get the JSON webhook payload for the event that triggered the workflow
