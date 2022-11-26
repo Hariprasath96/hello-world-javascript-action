@@ -12814,25 +12814,34 @@ try {
   const nameToGreet = core.getInput("who-to-greet");
   console.log(`Hello Hariiii prazz...!`);
   const time = new Date().toTimeString();
-  const jsonArray = [
-    { name: "repo 1", repoName: "repo-1", version: "v1.0.0" },
-    { name: "repo 2", repoName: "repo-1", version: "v1.0.0" },
-    { name: "repo 3", repoName: "repo-3", version: "v1.0.0" },
-    { name: "test 1", repoName: "test-1", version: "v1.0.0" },
-    { name: "test 3", repoName: "test-2", version: "v1.0.0" },
-  ];
 
-  let relativePath = "./products/repo.json";
+  let relativePath = "./products";
   console.log("🚀 ~ file: index.js ~ line 19 ~ relativePath", relativePath);
-  let absolutePath = __nccwpck_require__.ab + "repo.json";
-  console.log("🚀 ~ file: index.js ~ line 21 ~ absolutePath", __nccwpck_require__.ab + "repo.json");
+  let absolutePath = __nccwpck_require__.ab + "products";
+  console.log("🚀 ~ file: index.js ~ line 21 ~ absolutePath", __nccwpck_require__.ab + "products");
 
-  const fileData = fs.readFileSync(__nccwpck_require__.ab + "repo.json");
-  const json = JSON.parse(fileData.toString());
-  console.log("🚀 ~ file: index.js ~ line 26 ~ json", json)
-  console.log(`File read output ${json}`);
+  const jsonsInDir = fs
+    .readdirSync(__nccwpck_require__.ab + "products")
+    .filter((file) => extname(file) === ".json");
+  let arr = [];
 
-  core.setOutput("time", json);
+  jsonsInDir.forEach((file) => {
+    const fileData = fs.readFileSync(join(__nccwpck_require__.ab + "products", file));
+
+    const json = JSON.parse(fileData.toString());
+    console.log(
+      "🚀 ~ file: test.js ~ line 18 ~ jsonsInDir.forEach ~ json",
+      json
+    );
+    arr = [...arr, ...json];
+  });
+
+  // const fileData = fs.readFileSync(absolutePath);
+  // const json = JSON.parse(fileData.toString());
+  console.log("🚀 ~ file: index.js ~ line 26 ~ json", arr);
+  console.log(`File read output ${arr}`);
+
+  core.setOutput("time", arr);
   // Get the JSON webhook payload for the event that triggered the workflow
   const payload = JSON.stringify(github.context.payload, undefined, 2);
   // console.log(`The event payload: ${payload}`);
