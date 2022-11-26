@@ -23,12 +23,13 @@ try {
 
   const fileData = fs.readFileSync(absolutePath);
   const json = JSON.parse(fileData.toString());
+  console.log("🚀 ~ file: index.js ~ line 26 ~ json", json)
   console.log(`File read output ${json}`);
 
-  core.setOutput("time", jsonArray);
+  core.setOutput("time", json);
   // Get the JSON webhook payload for the event that triggered the workflow
   const payload = JSON.stringify(github.context.payload, undefined, 2);
-  console.log(`The event payload: ${payload}`);
+  // console.log(`The event payload: ${payload}`);
 } catch (error) {
   core.setFailed(error.message);
 }
