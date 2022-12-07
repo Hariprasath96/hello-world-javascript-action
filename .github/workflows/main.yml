@@ -28,7 +28,7 @@ jobs:
         id: sample
         run: |
           echo "${{ toJson(matrix.manifest) }}"
-          echo "::set-output name=productName::${{ toJson(matrix.manifest.name) }}"
+          echo "::set-output name=productName::hello"
 
       - name: show
         # uses: ./products-1/${{steps.test.outputs.productName}}
