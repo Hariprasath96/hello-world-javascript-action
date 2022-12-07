@@ -1,6 +1,6 @@
 const core = require("@actions/core");
 const github = require("@actions/github");
-const yaml = require('js-yaml');
+const yaml = require("js-yaml");
 const fs = require("fs-extra");
 const path = require("path");
 
@@ -15,16 +15,15 @@ try {
 
   getAllFiles.forEach((file) => {
     const fileData = yaml.load(
-      fs.readFileSync(path.join(`${path.resolve(relativePath)}`, file), "utf8")
+      fs.readFileSync(path.join(`${path.resolve(relativePath)}`, file))
     );
-    console.log("🚀 ~ file: index.js:20 ~ getAllFiles.forEach ~ fileData", fileData)
-    console.log("🚀 ~ file: index.js:22 ~ getAllFiles.forEach ~ fileData.on.workflow_call.inputs", fileData.on.workflow_call.inputs)
-    const product = JSON.parse(fileData);
-    // console.log("🚀 ~ file: index.js:22 ~ getAllFiles.forEach ~ product", product)
-    products = [...products, ...product];
+    let product = JSON.parse(JSON.stringify(fileData));
+    products = [...products, product];
   });
 
   console.log("🚀 ~ file: index.js ~ line 26 ~ json", products);
+
+  // fs.writeFileSync('./test.json', JSON.stringify(products))
 
   core.setOutput("products", products);
 

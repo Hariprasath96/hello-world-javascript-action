@@ -16929,16 +16929,15 @@ try {
 
   getAllFiles.forEach((file) => {
     const fileData = yaml.load(
-      fs.readFileSync(__nccwpck_require__.ab + "products-1/" + file, "utf8")
+      fs.readFileSync(__nccwpck_require__.ab + "products-1/" + file)
     );
-    console.log("🚀 ~ file: index.js:20 ~ getAllFiles.forEach ~ fileData", fileData)
-    console.log("🚀 ~ file: index.js:22 ~ getAllFiles.forEach ~ fileData.on.workflow_call.inputs", fileData.on.workflow_call.inputs)
-    const product = JSON.parse(fileData);
-    // console.log("🚀 ~ file: index.js:22 ~ getAllFiles.forEach ~ product", product)
-    products = [...products, ...product];
+    let product = JSON.parse(JSON.stringify(fileData));
+    products = [...products, product];
   });
 
   console.log("🚀 ~ file: index.js ~ line 26 ~ json", products);
+
+  // fs.writeFileSync('./test.json', JSON.stringify(products))
 
   core.setOutput("products", products);
 
