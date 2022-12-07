@@ -26,7 +26,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: |
-          echo "${{ fromJson(matrix.manifest) }}"
+          echo "${{ toJson(matrix.manifest) }}"
 
   # TriggerProductWorkFlow:
   #   needs: [product-list]
