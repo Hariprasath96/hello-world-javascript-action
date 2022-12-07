@@ -19,9 +19,9 @@ try {
     );
     console.log("🚀 ~ file: index.js:20 ~ getAllFiles.forEach ~ fileData", fileData)
     console.log("🚀 ~ file: index.js:22 ~ getAllFiles.forEach ~ fileData.on.workflow_call.inputs", fileData.on.workflow_call.inputs)
-    // const product = JSON.parse(fileData.toString());
+    const product = JSON.parse(fileData);
     // console.log("🚀 ~ file: index.js:22 ~ getAllFiles.forEach ~ product", product)
-    products = [...products, ...fileData];
+    products = [...products, ...product];
   });
 
   console.log("🚀 ~ file: index.js ~ line 26 ~ json", products);
