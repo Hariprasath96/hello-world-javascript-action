@@ -30,7 +30,7 @@ on:
         default: "stage"
 
 jobs:      
-  Check-data:
-    - name: Check data
-      run: |
-        echo ${{inputs.version_to_deploy}} 
+  # Check-data:
+  #   - name: Check data
+  #     run: |
+  #       echo ${{inputs.version_to_deploy}} 
