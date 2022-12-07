@@ -36,7 +36,7 @@ jobs:
         # with:
         #   version_to_deploy: latest
         run: |
-          echo "product name-- ${{steps.test.outputs.productName}}"
+          echo "product name--" ${{steps.test.outputs.productName}}
 
   # TriggerProductWorkFlow:
   #   needs: [product-list]
