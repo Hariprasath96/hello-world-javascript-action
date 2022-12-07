@@ -1,23 +1,25 @@
 const core = require("@actions/core");
 const github = require("@actions/github");
+const yaml = require('js-yaml');
 const fs = require("fs-extra");
 const path = require("path");
 
 try {
   console.log(`starting script...!`);
-  let relativePath = "./products";
+  let relativePath = "./products-1";
   let products = [];
 
   const getAllFiles = fs
     .readdirSync(path.resolve(relativePath))
-    .filter((file) => path.extname(file) === ".json");
+    .filter((file) => path.extname(file) === ".yml");
 
   getAllFiles.forEach((file) => {
-    const fileData = fs.readFileSync(
-      path.join(`${path.resolve(relativePath)}`, file)
+    const fileData = yaml.load(
+      fs.readFileSync(path.join(`${path.resolve(relativePath)}`, file), "utf8")
     );
-    const product = JSON.parse(fileData.toString());
-    products = [...products, ...product];
+    console.log("🚀 ~ file: index.js:20 ~ getAllFiles.forEach ~ fileData", fileData)
+    // const product = JSON.parse(fileData.toString());
+    // products = [...products, ...product];
   });
 
   console.log("🚀 ~ file: index.js ~ line 26 ~ json", products);

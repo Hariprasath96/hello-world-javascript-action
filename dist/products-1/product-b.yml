@@ -1,0 +1,36 @@
+name: "Opschain ESG"
+# description: 'Workflow to trigger Opschain ESG'
+
+# name: Release on stage environment
+
+on:
+  workflow_call:
+    inputs:
+      version_to_deploy:
+        description: "What version to deploy"
+        required: false
+        type: string
+        default: "latest"
+      environment-to-deploy:
+        description: "Which environment to deploy"
+        required: true
+        type: string
+        default: "stage"
+  workflow_dispatch:
+    inputs:
+      version_to_deploy:
+        description: "What version to deploy"
+        required: false
+        type: string
+        default: "latest"
+      environment-to-deploy:
+        description: "Which environment to deploy"
+        required: true
+        type: string
+        default: "stage"
+
+jobs:      
+  Check-data:
+    - name: Check data
+      run: |
+        echo ${{inputs.version_to_deploy}} 
