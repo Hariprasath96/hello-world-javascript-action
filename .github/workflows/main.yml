@@ -38,7 +38,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - uses: products-1/product-b.yml
+      - uses: ../../products-1/product-b.yml
         with:
           version_to_deploy: latest
         # run: |
