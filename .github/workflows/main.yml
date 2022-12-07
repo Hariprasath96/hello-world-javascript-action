@@ -31,10 +31,12 @@ jobs:
           echo "${{ toJson(matrix.manifest) }}"
           echo "::set-output name=productName::${{ toJson(matrix.manifest.name) }}
 
-      - name: trigger
-        uses: ./products-1/${{steps.test.outputs.productName}}
-        with:
-          version_to_deploy: latest
+      - name: show
+        # uses: ./products-1/${{steps.test.outputs.productName}}
+        # with:
+        #   version_to_deploy: latest
+        run: |
+          echo "product name-- ${{steps.test.outputs.productName}}"
 
   # TriggerProductWorkFlow:
   #   needs: [product-list]
