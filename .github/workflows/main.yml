@@ -31,11 +31,12 @@ jobs:
           echo "::set-output name=productName::${{ toJson(matrix.manifest.name) }}"
           echo "test_p=${{ toJson(matrix.manifest.name) }}" >> $GITHUB_ENV
 
-      - uses: actions/checkout@v2 
-
       - name: trigger
         run: |
           echo ${{ env.test_p }}
+          
+      - name: Checkout
+        uses: actions/checkout@v2
 
       - uses: ./products-1/product-b.yml
         with:
