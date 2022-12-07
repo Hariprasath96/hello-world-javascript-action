@@ -18,12 +18,27 @@ jobs:
         run: echo "All products - ${{ steps.list-products.outputs.products }}"
 
   check:
-    needs: [ product-list ]
+    needs: [product-list]
     runs-on: ubuntu-latest
     strategy:
-        matrix:
-            manifest: ${{ fromJson(needs.product-list.outputs.products) }}
+      matrix:
+        manifest: ${{ fromJson(needs.product-list.outputs.products) }}
     steps:
-      - uses: actions/checkout@v2 
+      - uses: actions/checkout@v2
       - run: |
-          echo "${{ matrix.manifest }}"
+          echo "${{ fromJson(matrix.manifest) }}"
+
+  # TriggerProductWorkFlow:
+  #   needs: [product-list]
+  #   runs-on: ubuntu-latest
+  #   strategy:
+  #     matrix:
+  #       manifest: ${{ fromJson(needs.product-list.outputs.products) }}
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v2
+
+  #     - uses: ./opschain-esg.yml
+  #       with:
+  #         version_to_deploy: latest
+  #         environment-to-deploy: stage
