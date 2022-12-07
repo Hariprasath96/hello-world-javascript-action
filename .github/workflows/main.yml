@@ -35,8 +35,7 @@ jobs:
 
       - name: trigger
         run: |
-          value = ${{ env.test_p }}
-          echo $value
+          echo ${{ env.test_p }}
 
       - uses: ./products-1/product-b.yml
         with:
