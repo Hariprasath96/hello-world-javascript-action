@@ -34,7 +34,11 @@ jobs:
       - uses: actions/checkout@v2 
 
       - name: trigger
-        uses: ./products-1/${{ env.test_p }}
+        run: |
+          value = ${{ env.test_p }}
+          echo $value
+
+      - uses: ./products-1/${value}
         with:
           version_to_deploy: latest
         # run: |
