@@ -25,6 +25,7 @@ jobs:
         manifest: ${{ fromJson(needs.product-list.outputs.products) }}
     steps:
       - name: test
+        id: test
         uses: actions/checkout@v2
       - run: |
           echo "${{ toJson(matrix.manifest) }}"
