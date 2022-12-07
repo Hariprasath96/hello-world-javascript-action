@@ -25,18 +25,17 @@ jobs:
         manifest: ${{ fromJson(needs.product-list.outputs.products) }}
     steps:
       - name: test
-        id: test
-        uses: actions/checkout@v2
-      - run: |
+        id: sample
+        run: |
           echo "${{ toJson(matrix.manifest) }}"
-          echo "::set-output name=productName::hello"
+          echo "::set-output name=productName::${{ toJson(matrix.manifest.name) }}"
 
       - name: show
         # uses: ./products-1/${{steps.test.outputs.productName}}
         # with:
         #   version_to_deploy: latest
         run: |
-          echo "product name--" ${{steps.test.outputs.productName}}
+          echo "product name--" ${{steps.sample.outputs.productName}}
 
   # TriggerProductWorkFlow:
   #   needs: [product-list]
