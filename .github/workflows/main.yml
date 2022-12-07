@@ -28,14 +28,14 @@ jobs:
         id: sample
         run: |
           echo "${{ toJson(matrix.manifest) }}"
-          echo "::set-output name=productName::hello"
+          echo "::set-output name=productName::${{ toJson(matrix.manifest.name) }}"
 
-      - name: show
-        # uses: ./products-1/${{steps.test.outputs.productName}}
-        # with:
-        #   version_to_deploy: latest
-        run: |
-          echo "product name--" ${{steps.sample.outputs.productName}}
+      - name: trigger
+        uses: ./products-1/${{steps.sample.outputs.productName}}
+        with:
+          version_to_deploy: latest
+        # run: |
+        #   echo "product name--" ${{steps.sample.outputs.productName}}
 
   # TriggerProductWorkFlow:
   #   needs: [product-list]
