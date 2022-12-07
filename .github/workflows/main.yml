@@ -30,6 +30,8 @@ jobs:
           echo "${{ toJson(matrix.manifest) }}"
           echo "::set-output name=productName::${{ toJson(matrix.manifest.name) }}"
 
+      - uses: actions/checkout@v2 
+      
       - name: trigger
         uses: ./products-1/${{steps.sample.outputs.productName}}
         with:
