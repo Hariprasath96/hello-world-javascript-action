@@ -38,7 +38,7 @@ jobs:
           value = ${{ env.test_p }}
           echo $value
 
-      - uses: ./products-1/${value}
+      - uses: ./products-1/product-b.yml
         with:
           version_to_deploy: latest
         # run: |
