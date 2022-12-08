@@ -18,10 +18,12 @@ jobs:
         run: echo "All products - ${{ steps.list-products.outputs.products }}"
   
   TriggerProductWorkFlow:
-    uses: ./.github/workflows/publish.yml
-    with:
-      version_to_deploy: 1.0.0
-      # environment-to-deploy: stage
+    runs-on: ubuntu-latest
+    steps:
+    - uses: ./.github/workflows/publish.yml
+      with:
+        version_to_deploy: 1.0.0
+        # environment-to-deploy: stage
 
 
   check:
