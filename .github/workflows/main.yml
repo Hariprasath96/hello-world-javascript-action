@@ -26,7 +26,7 @@ jobs:
     #     environment-to-deploy: stage
       - uses: actions/checkout@v2
       -  id: deploy
-         uses: ./.github/actions/publish
+         uses: ./.github/actions
 
 
   check:
