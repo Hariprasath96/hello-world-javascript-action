@@ -29,14 +29,15 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        manifest: ${{ fromJson(needs.product-list.outputs.products) }}
+        # target: ${{ fromJson(needs.product-list.outputs.products) }}
+        target: [dev, stage, prod]
     steps:
       - name: test
         id: sample
         run: |
-          echo "${{ toJson(matrix.manifest) }}"
-          echo "::set-output name=productName::${{ toJson(matrix.manifest.name) }}"
-          echo "test_p=${{ toJson(matrix.manifest.name) }}" >> $GITHUB_ENV
+          echo "${{ toJson(matrix.target) }}"
+          echo "::set-output name=productName::${{ toJson(matrix.target.name) }}"
+          echo "test_p=${{ toJson(matrix.target.name) }}" >> $GITHUB_ENV
 
       - name: trigger
         run: |
@@ -47,7 +48,8 @@ jobs:
 
       - uses: ./.github/workflows/publish.yml
         with:
-          version_to_deploy: 1.0.0
+          # version_to_deploy: 1.0.0
+          target: ${{ matrix.target }}
         # run: |
         #   echo "product name--" ${{steps.sample.outputs.productName}}
 

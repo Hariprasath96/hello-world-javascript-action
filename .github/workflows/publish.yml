@@ -12,6 +12,11 @@ on:
         required: false
         type: string
         default: "stage"
+      target:
+        description: "Which environment to deploy"
+        required: false
+        type: string
+        default: "dev"
 
 jobs:     
   # PublishToAKS:
@@ -80,4 +85,6 @@ jobs:
       - run: echo Version ${{ inputs.version_to_deploy }}
         shell: bash
       - run: echo env ${{ inputs.environment-to-deploy }}
+        shell: bash
+      - run: echo env ${{ inputs.target }}
         shell: bash
