@@ -26,30 +26,30 @@ jobs:
 
   check:
     needs: [product-list]
-    runs-on: ubuntu-latest
+    # runs-on: ubuntu-latest
     strategy:
       matrix:
         # target: ${{ fromJson(needs.product-list.outputs.products) }}
         target: [dev, stage, prod]
-    steps:
-      - name: test
-        id: sample
-        run: |
-          echo "${{ toJson(matrix.target) }}"
-          echo "::set-output name=productName::${{ toJson(matrix.target.name) }}"
-          echo "test_p=${{ toJson(matrix.target.name) }}" >> $GITHUB_ENV
+    
+      # - name: test
+      #   id: sample
+      #   run: |
+      #     echo "${{ toJson(matrix.target) }}"
+      #     echo "::set-output name=productName::${{ toJson(matrix.target.name) }}"
+      #     echo "test_p=${{ toJson(matrix.target.name) }}" >> $GITHUB_ENV
 
-      - name: trigger
-        run: |
-          echo ${{ env.test_p }}
+      # - name: trigger
+      #   run: |
+      #     echo ${{ env.test_p }}
 
-      - name: Checkout
-        uses: actions/checkout@v2
+      # - name: Checkout
+      #   uses: actions/checkout@v2
 
-      - uses: ./.github/workflows/publish.yml
-        with:
+    uses: ./.github/workflows/publish.yml
+    with:
           # version_to_deploy: 1.0.0
-          target: ${{ matrix.target }}
+        target: ${{ matrix.target }}
         # run: |
         #   echo "product name--" ${{steps.sample.outputs.productName}}
 
@@ -68,3 +68,10 @@ jobs:
   #         version_to_deploy: latest
   #         environment-to-deploy: stage
 
+  # ReuseableMatrixJobForDeployment:
+  #   strategy:
+  #       matrix:
+  #         target: [dev, stage, prod]
+  #   uses: ./.github/workflows/publish.yml
+  #   with:
+  #       target: ${{ matrix.target }}
