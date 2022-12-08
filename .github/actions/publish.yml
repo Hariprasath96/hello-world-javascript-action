@@ -1,0 +1,33 @@
+name: "Publish to AKS Workflow"
+description: "Publish to AKS Workflow"
+
+inputs:
+  version_to_deploy:
+    description: "What version to deploy"
+    required: false
+    type: string
+    default: "latest"
+  environment-to-deploy:
+    description: "Which environment to deploy"
+    required: false
+    type: string
+    default: "stage"
+  target:
+    description: "Which environment to deploy"
+    required: false
+    type: string
+    default: "dev"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    - run: echo Version ${{ inputs.version_to_deploy }}
+      shell: bash
+    - run: echo env ${{ inputs.environment-to-deploy }}
+      shell: bash
+    - run: echo env ${{ inputs.target }}
+      shell: bash
