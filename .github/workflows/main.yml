@@ -47,7 +47,7 @@ jobs:
 
       - uses: ./.github/workflows/publish.yml
         with:
-          version_to_deploy: latest
+          version_to_deploy: 1.0.0
         # run: |
         #   echo "product name--" ${{steps.sample.outputs.productName}}
 
