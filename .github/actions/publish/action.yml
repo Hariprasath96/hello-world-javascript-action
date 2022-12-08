@@ -5,17 +5,14 @@ inputs:
   version_to_deploy:
     description: "What version to deploy"
     required: false
-    type: string
     default: "latest"
   environment-to-deploy:
     description: "Which environment to deploy"
     required: false
-    type: string
     default: "stage"
   target:
     description: "Which environment to deploy"
     required: false
-    type: string
     default: "dev"
 
 runs:
