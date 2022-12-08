@@ -6,4 +6,4 @@ outputs:
     description: 'Get all products using script'
 runs:
   using: 'node16'
-  main: 'dist/index.js'
+  main: 'index.js'
