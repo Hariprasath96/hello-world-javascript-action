@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: opschain-esg-api
+  labels:
+    app: opschain-esg-api
+spec:
+  ports:
+    - port: 3001
+      protocol: TCP
+      targetPort: 3001
+  selector:
+    app: opschain-esg-api

@@ -6,7 +6,7 @@ const path = require("path");
 
 try {
   console.log(`starting script...!`);
-  let relativePath = "./products-1";
+  let relativePath = "./products";
   let products = [];
 
   const getAllFiles = fs

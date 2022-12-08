@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: opschain-esg-api
+  annotations:
+    kubernetes.io/ingress.class: azure/application-gateway
+    appgw.ingress.kubernetes.io/connection-draining: 'true'
+    appgw.ingress.kubernetes.io/connection-draining-timeout: '60'
+    appgw.ingress.kubernetes.io/request-timeout: '90'
+spec:
+  rules:
+    - host: opschain-esg-api.dev.blockchain.ey.com
+      http:
+        paths:
+          - backend:
+              service:
+                name: opschain-esg-api
+                port: 
+                  number: 3001
+            pathType: ImplementationSpecific

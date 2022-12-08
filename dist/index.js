@@ -16920,16 +16920,16 @@ const path = __nccwpck_require__(1017);
 
 try {
   console.log(`starting script...!`);
-  let relativePath = "./products-1";
+  let relativePath = "./products";
   let products = [];
 
   const getAllFiles = fs
-    .readdirSync(__nccwpck_require__.ab + "products-1")
+    .readdirSync(__nccwpck_require__.ab + "products")
     .filter((file) => path.extname(file) === ".yml");
 
   getAllFiles.forEach((file) => {
     const fileData = yaml.load(
-      fs.readFileSync(__nccwpck_require__.ab + "products-1/" + file)
+      fs.readFileSync(__nccwpck_require__.ab + "products/" + file)
     );
     let product = JSON.parse(JSON.stringify(fileData));
     products = [...products, product];

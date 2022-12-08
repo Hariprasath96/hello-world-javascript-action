@@ -6,25 +6,57 @@ inputs:
     description: "What version to deploy"
     required: false
     default: "latest"
-  environment-to-deploy:
+  environment_to_deploy:
     description: "Which environment to deploy"
     required: false
-    default: "stage"
-  name:
-    description: "name"
+    default: "dev"
+  product_name:
+    description: "Name of the product"
     required: true
     default: "test"
 
 runs:
   using: "composite"
   steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
-    - run: echo Version ${{ inputs.version_to_deploy }}
-      shell: bash
-    - run: echo env ${{ inputs.environment-to-deploy }}
-      shell: bash
-    - run: echo env ${{ inputs.name }}
-      shell: bash
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+    
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ secrets.GHCR_REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: aks connection dev
+        uses: azure/k8s-set-context@v2
+        with:
+          method: kubeconfig
+          kubeconfig: ${{ secrets.BEC_KUBECONFIG_DEV }}
+        id: updatecontext
+
+      - name: deploy ${{ inputs.product_name }} to dev cluster
+        uses: azure/k8s-deploy@v1
+        with:
+          manifests: ./products_manifest/${{ inputs.product_name }}/dev
+          images:
+            ${{ secrets.GHCR_REGISTRY }}/eyblockchain/${{ inputs.product_name }}:${{ inputs.version_to_deploy }}
+
+      - name: Wait for k8s deployment to finish
+        shell: bash
+        run: |
+          kubectl wait pods -l app=${{ inputs.product_name }} --namespace=default --for condition=Ready --timeout=300s
+      - name: Pod setting up message
+        shell: bash
+        run: |
+          echo "Pod is setting up, please try after 1 min to see the changes"
+      - name: Send slack notification to bec-failure-notifications channel
+        uses: 8398a7/action-slack@v3.11.0
+        with:
+          status: ${{ job.status }}
+          fields: author,repo,workflow,message,commit,action,eventName,ref,pullRequest,job,took
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_BEC_FAILURE_NOTIFICATION_CHANNEL }}
+        if: ${{ always() && job.status == 'failure' }}
+

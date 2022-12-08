@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: esg-common-config
+data:
+  LOG_LEVEL: 'info'
+  NODE_ENV: 'development'
+  DOMAIN: 'opschain-esg-api.dev.blockchain.ey.com'
+  ENVIRONMENT: 'dev'
+  COOKIE_DOMAIN: 'dev.blockchain.ey.com'

@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: opschain-esg-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: opschain-esg-api
+  revisionHistoryLimit: 10
+  template:
+    metadata:
+      labels:
+        app: opschain-esg-api
+    spec:
+      nodeSelector:
+        'kubernetes.io/os': linux
+      containers:
+        - name: opschain-esg-api
+          image: ghcr.io/eyblockchain/opschain-esg-api:{{version}}
+          env:
+            - name: MONGO_CONNECTION
+              valueFrom:
+                secretKeyRef:
+                  name: opschain-esg-secret
+                  key: mongo_db_url
+            - name: AZURE_CONTAINER
+              valueFrom:
+                secretKeyRef:
+                  name: opschain-esg-secret
+                  key: azureContainer
+            - name: AZURE_CONNECTION_STRING
+              valueFrom:
+                secretKeyRef:
+                  name: opschain-esg-secret
+                  key: azureConnectionString
+            - name: AUTH0_DOMAIN
+              valueFrom:
+                secretKeyRef:
+                  name: auth0domain
+                  key: uri
+          envFrom:
+            - configMapRef:
+                name: esg-common-config
+          ports:
+            - containerPort: 3001
+          readinessProbe:
+            httpGet:
+            # For graphql
+              # path: /.well-known/apollo/server-health 
+            # For rest
+              path: /
+              port: 3001
+            periodSeconds: 10
+            timeoutSeconds: 1
+      imagePullSecrets:
+        - name: github-eyblockchainregistry
+      terminationGracePeriodSeconds: 90
