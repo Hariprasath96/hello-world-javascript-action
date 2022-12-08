@@ -12,11 +12,11 @@ on:
         required: false
         type: string
         default: "stage"
-      target:
-        description: "Which environment to deploy"
+      name:
+        description: "name"
         required: false
         type: string
-        default: "dev"
+        default: "test"
 
 jobs:     
   # PublishToAKS:

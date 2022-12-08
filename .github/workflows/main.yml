@@ -16,18 +16,6 @@ jobs:
 
       - name: Get the output products-list
         run: echo "All products - ${{ steps.list-products.outputs.products }}"
-  
-  TriggerProductWorkFlow:
-    runs-on: ubuntu-latest
-    steps:
-    # - uses: ./.github/actions/publish.yml
-    #   with:
-    #     version_to_deploy: 1.0.0
-    #     environment-to-deploy: stage
-      - uses: actions/checkout@v2
-      -  id: deploy
-         uses: ./.github/actions/publish
-
 
   check:
     needs: [product-list]
@@ -35,27 +23,27 @@ jobs:
     strategy:
       matrix:
         target: ${{ fromJson(needs.product-list.outputs.products) }}
-        # target: [dev, stage, prod]
-    
-      # - name: test
-      #   id: sample
-      #   run: |
-      #     echo "${{ toJson(matrix.target) }}"
-      #     echo "::set-output name=productName::${{ toJson(matrix.target.name) }}"
-      #     echo "test_p=${{ toJson(matrix.target.name) }}" >> $GITHUB_ENV
+    steps:
+      - name: test
+        id: sample
+        run: |
+          echo "${{ toJson(matrix.target) }}"
+          echo "::set-output name=productName::${{ toJson(matrix.target.name) }}"
+          echo "test_p=${{ toJson(matrix.target.name) }}" >> $GITHUB_ENV
 
-      # - name: trigger
-      #   run: |
-      #     echo ${{ env.test_p }}
+      - name: trigger
+        run: |
+          echo ${{ env.test_p }}
 
-      # - name: Checkout
-      #   uses: actions/checkout@v2
-    steps: 
-      - uses: actions/checkout@v3
-      - uses: ./.github/actions/publish
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Publish action
+        uses: ./.github/actions/publish
         with:
           version_to_deploy: 1.0.0
           target: dev
+          name: ${{steps.sample.outputs.productName}}
         # run: |
         #   echo "product name--" ${{steps.sample.outputs.productName}}
 

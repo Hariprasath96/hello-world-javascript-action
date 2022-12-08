@@ -10,10 +10,10 @@ inputs:
     description: "Which environment to deploy"
     required: false
     default: "stage"
-  target:
-    description: "Which environment to deploy"
-    required: false
-    default: "dev"
+  name:
+    description: "name"
+    required: true
+    default: "test"
 
 runs:
   using: "composite"
@@ -26,5 +26,5 @@ runs:
       shell: bash
     - run: echo env ${{ inputs.environment-to-deploy }}
       shell: bash
-    - run: echo env ${{ inputs.target }}
+    - run: echo env ${{ inputs.name }}
       shell: bash
