@@ -20,7 +20,7 @@ jobs:
   TriggerProductWorkFlow:
     uses: ./.github/workflows/publish.yml
     with:
-      version-to-deploy: 1.0.0
+      version_to_deploy: 1.0.0
       # environment-to-deploy: stage
 
 

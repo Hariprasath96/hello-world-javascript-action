@@ -9,7 +9,7 @@ on:
         default: "latest"
       environment-to-deploy:
         description: "Which environment to deploy"
-        required: true
+        required: false
         type: string
         default: "stage"
 
@@ -59,7 +59,7 @@ jobs:
   #       env:
   #         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_BEC_FAILURE_NOTIFICATION_CHANNEL }}
   #       if: ${{ always() && job.status == 'failure' }}
-  
+
   test_workflow:
     runs-on: ubuntu-latest
     steps:
