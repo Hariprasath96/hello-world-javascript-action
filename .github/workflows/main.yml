@@ -20,10 +20,13 @@ jobs:
   TriggerProductWorkFlow:
     runs-on: ubuntu-latest
     steps:
-    - uses: ./.github/actions/publish.yml
-      with:
-        version_to_deploy: 1.0.0
-        environment-to-deploy: stage
+    # - uses: ./.github/actions/publish.yml
+    #   with:
+    #     version_to_deploy: 1.0.0
+    #     environment-to-deploy: stage
+      - uses: actions/checkout@v2
+      -  id: deploy
+         uses: ./.github/actions/publish
 
 
   check:
