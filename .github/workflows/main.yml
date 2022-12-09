@@ -22,7 +22,7 @@ jobs:
 
       - name: List all products
         id: list-products
-        uses: ./
+        uses: ./workflow/
 
       - name: Get the output products-list
         run: echo "All products - ${{ steps.list-products.outputs.products }}"
@@ -52,5 +52,5 @@ jobs:
     uses: ./publish.yml
     with:
         version_to_deploy: ${{ toJson(matrix.target.inputs.version_to_deploy) }}
-        target: ${{ toJson(matrix.target.inputs.environment-to-deploy) }}
+        environment-to-deploy: ${{ toJson(matrix.target.inputs.environment-to-deploy) }}
         product_name: ${{ toJson(matrix.target.name) }}
