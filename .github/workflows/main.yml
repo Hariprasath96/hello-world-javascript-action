@@ -10,6 +10,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '12.x'
+      
+      - name: build
+        run: |
+          npm ci
+          npm run build --if-present
+
       - name: List all products
         id: list-products
         uses: ./
@@ -19,28 +29,28 @@ jobs:
 
   TriggerProductWorkFlow:
     needs: [product-list]
-    runs-on: ubuntu-latest
+    # runs-on: ubuntu-latest
     strategy:
       matrix:
         target: ${{ fromJson(needs.product-list.outputs.products) }}
-    steps:
-      - name: test
-        id: sample
-        run: |
-          echo "${{ toJson(matrix.target) }}"
-          echo "::set-output name=productName::${{ toJson(matrix.target.name) }}"
-          echo "test_p=${{ toJson(matrix.target.name) }}" >> $GITHUB_ENV
+    # steps:
+    #   - name: test
+    #     id: sample
+    #     run: |
+    #       echo "${{ toJson(matrix.target) }}"
+    #       echo "::set-output name=productName::${{ toJson(matrix.target.name) }}"
+    #       echo "test_p=${{ toJson(matrix.target.name) }}" >> $GITHUB_ENV
 
-      - name: trigger
-        run: |
-          echo ${{ env.test_p }}
+    #   - name: trigger
+    #     run: |
+    #       echo ${{ env.test_p }}
 
-      - name: Checkout
-        uses: actions/checkout@v2
+    #   - name: Checkout
+    #     uses: actions/checkout@v2
 
-      - name: Publish action
-        uses: ./.github/actions/test
-        with:
-          version_to_deploy: 1.0.0
-          target: dev
-          product_name: ${{steps.sample.outputs.productName}}
+      # - name: Publish action
+    uses: ./publish.yml
+    with:
+        version_to_deploy: ${{ toJson(matrix.target.inputs.version_to_deploy) }}
+        target: ${{ toJson(matrix.target.inputs.environment-to-deploy) }}
+        product_name: ${{ toJson(matrix.target.name) }}

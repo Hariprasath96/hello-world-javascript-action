@@ -1,0 +1,4 @@
+name: Product-1
+inputs:
+  version_to_deploy: 1.1.0
+  environment-to-deploy: dev
